@@ -1,20 +1,20 @@
 package com.Project1.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
+import lombok.NoArgsConstructor;
 import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
-//import javax.persistence.*;
-
-//@Entity
 @Data
+@Table
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @PrimaryKey
-    private Long id;
+    private int id;
+
     private String firstName;
     private String lastName;
     private String email;
@@ -24,6 +24,6 @@ public class User {
     private String password;
 
     private String role;
-    private boolean enabled = false;
+    //private boolean enabled = false;
 
 }

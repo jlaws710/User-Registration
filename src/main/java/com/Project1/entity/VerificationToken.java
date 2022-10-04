@@ -1,21 +1,18 @@
 package com.Project1.entity;
 
+import java.util.Calendar;
+import java.util.Date;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
+import org.springframework.data.cassandra.core.mapping.Table;
 
-//import javax.persistence.*;
-import java.util.Calendar;
-import java.util.Date;
-
-//@Entity
 @Data
 @NoArgsConstructor
+@Table
 public class VerificationToken {
     private static final int EXPIRATION_TIME = 10;
 
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @PrimaryKey
     private Long id;
     private String token;

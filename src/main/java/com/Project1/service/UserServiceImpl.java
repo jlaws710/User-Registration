@@ -1,4 +1,5 @@
 package com.Project1.service;
+
 import com.Project1.entity.PasswordResetToken;
 import com.Project1.entity.User;
 import com.Project1.entity.UserModel;
@@ -6,13 +7,12 @@ import com.Project1.entity.VerificationToken;
 import com.Project1.repository.PasswordResetTokenRepository;
 import com.Project1.repository.UserRepository;
 import com.Project1.repository.VerificationTokenRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-
 import java.util.Calendar;
 import java.util.Optional;
 import java.util.UUID;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
             return "expired";
         }
 
-        user.setEnabled(true);
+        //user.setEnabled(true);
         userRepository.save(user);
         return "Valid";
     }
