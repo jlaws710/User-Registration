@@ -22,8 +22,8 @@ public class RegisterController {
     @Autowired
     private ApplicationEventPublisher publisher;
 
-    @GetMapping("/hello")
-    public String hello() {return "Hello to my program";
+    @GetMapping("/welcome")
+    public String hello() {return "Welcome to my Project";
     }
 
     @PostMapping("/register")
@@ -40,9 +40,9 @@ public class RegisterController {
     public String verifyRegistration(@RequestParam("token") String token) {
         String result = userService.validateVerificationToken(token);
         if(result.equalsIgnoreCase("valid")) {
-            return "User verifies Successfully";
+            return "User Successfully Verified";
         }
-        return "Bad User";
+        return "Incorrect User";
     }
 
     @GetMapping("/resendVerifyToken")

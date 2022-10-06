@@ -14,7 +14,7 @@ public class VerificationToken {
     private static final int EXPIRATION_TIME = 10;
 
     @PrimaryKey
-    private Long id;
+    private int id;
     private String token;
     private Date expirationTime;
 
