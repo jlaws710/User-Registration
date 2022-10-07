@@ -1,6 +1,6 @@
 package com.Project1.event;
 
-import com.Project1.entity.User;
+import com.Project1.models.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.context.ApplicationEvent;

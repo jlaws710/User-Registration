@@ -1,6 +1,6 @@
-package com.Project1.entity.listener;
+package com.Project1.listener;
 
-import com.Project1.entity.User;
+import com.Project1.models.User;
 import com.Project1.event.RegistrationCompleteEvent;
 import com.Project1.service.UserService;
 import java.util.UUID;

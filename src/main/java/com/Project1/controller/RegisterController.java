@@ -1,9 +1,9 @@
 package com.Project1.controller;
 
-import com.Project1.entity.PasswordModel;
-import com.Project1.entity.User;
-import com.Project1.entity.UserModel;
-import com.Project1.entity.VerificationToken;
+import com.Project1.models.PasswordModel;
+import com.Project1.models.User;
+import com.Project1.models.UserModel;
+import com.Project1.models.VerificationToken;
 import com.Project1.event.RegistrationCompleteEvent;
 import com.Project1.service.UserService;
 import java.util.Optional;

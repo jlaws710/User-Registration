@@ -1,40 +1,44 @@
-package com.Project1.entity;
+package com.Project1.models;
 
 import java.util.Calendar;
 import java.util.Date;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.cassandra.core.mapping.CassandraType;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
 @Data
-@NoArgsConstructor
 @Table
-public class VerificationToken {
+@NoArgsConstructor
+public class PasswordResetToken {
     private static final int EXPIRATION_TIME = 10;
 
-    @PrimaryKey
+    @PrimaryKey @CassandraType(type = CassandraType.Name.INT)
     private int id;
+    @CassandraType(type = CassandraType.Name.TEXT)
     private String token;
+    @CassandraType(type = CassandraType.Name.DATE)
     private Date expirationTime;
 
-    /*@OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id",
-            nullable = false,
-            foreignKey = @ForeignKey(name = "FK)USER_VERIFY_TOKEN")) */
+    /** @Transient prevents this user object from mapping */
+    @Transient
     private User user;
-    public VerificationToken(User user, String token) {
+
+    public PasswordResetToken(User user, String token) {
         super();
         this.token = token;
         this.user = user;
         this.expirationTime = calculateExpirationDate(EXPIRATION_TIME);
     }
 
-    public VerificationToken(String token) {
+    public PasswordResetToken(String token) {
         super();
         this.token = token;
         this.expirationTime = calculateExpirationDate(EXPIRATION_TIME);
     }
+
     private Date calculateExpirationDate(int expirationTime) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(new Date().getTime());

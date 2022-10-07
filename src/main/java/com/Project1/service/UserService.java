@@ -1,8 +1,8 @@
 package com.Project1.service;
 
-import com.Project1.entity.User;
-import com.Project1.entity.UserModel;
-import com.Project1.entity.VerificationToken;
+import com.Project1.models.User;
+import com.Project1.models.UserModel;
+import com.Project1.models.VerificationToken;
 import java.util.Optional;
 
 public interface UserService {

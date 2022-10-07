@@ -1,6 +1,6 @@
 package com.Project1.repository;
 
-import com.Project1.entity.PasswordResetToken;
+import com.Project1.models.PasswordResetToken;
 import org.springframework.data.cassandra.repository.AllowFiltering;
 import org.springframework.data.cassandra.repository.CassandraRepository;
 import org.springframework.stereotype.Repository;

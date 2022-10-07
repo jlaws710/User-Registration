@@ -1,9 +1,9 @@
-package com.Project1.entity;
+package com.Project1.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.cassandra.core.mapping.Column;
+import org.springframework.data.cassandra.core.mapping.CassandraType;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
@@ -15,18 +15,21 @@ import org.springframework.data.cassandra.core.mapping.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
-    @PrimaryKey
+    @PrimaryKey @CassandraType(type = CassandraType.Name.INT)
     private int id;
 
+    @CassandraType(type = CassandraType.Name.TEXT)
     private String firstName;
+
+    @CassandraType(type = CassandraType.Name.TEXT)
     private String lastName;
+
+    @CassandraType(type = CassandraType.Name.TEXT)
     private String email;
 
-    //@Column(length = 60)
-    @Column
+    @CassandraType(type = CassandraType.Name.TEXT)
     private String password;
 
+    @CassandraType(type = CassandraType.Name.TEXT)
     private String role;
-    //private boolean enabled = false;
-
 }

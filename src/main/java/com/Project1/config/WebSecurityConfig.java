@@ -11,7 +11,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
-    private static final String[] WHITE_LIST_URLS = {
+    private static final String[] APPROVED_LIST_URLS = {
             "/welcome",
             "/register",
             "/verifyRegistration",
@@ -31,7 +31,7 @@ public class WebSecurityConfig {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .antMatchers(WHITE_LIST_URLS).permitAll();
+                .antMatchers(APPROVED_LIST_URLS).permitAll();
 
         return http.build();
     }

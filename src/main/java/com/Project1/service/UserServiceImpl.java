@@ -1,9 +1,9 @@
 package com.Project1.service;
 
-import com.Project1.entity.PasswordResetToken;
-import com.Project1.entity.User;
-import com.Project1.entity.UserModel;
-import com.Project1.entity.VerificationToken;
+import com.Project1.models.PasswordResetToken;
+import com.Project1.models.User;
+import com.Project1.models.UserModel;
+import com.Project1.models.VerificationToken;
 import com.Project1.repository.PasswordResetTokenRepository;
 import com.Project1.repository.UserRepository;
 import com.Project1.repository.VerificationTokenRepository;
