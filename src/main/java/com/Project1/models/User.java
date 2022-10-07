@@ -32,4 +32,7 @@ public class User {
 
     @CassandraType(type = CassandraType.Name.TEXT)
     private String role;
+
+    @CassandraType(type = CassandraType.Name.TEXT)
+    private String creditCard;
 }

@@ -9,6 +9,7 @@ import com.Project1.repository.UserRepository;
 import com.Project1.repository.VerificationTokenRepository;
 import java.util.Calendar;
 import java.util.Optional;
+import java.util.Random;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,6 +33,10 @@ public class UserServiceImpl implements UserService {
         user.setFirstName(userModel.getFirstName());
         user.setLastName(userModel.getLastName());
         user.setRole("USER");
+        Random rand = new Random();
+        int number = rand.nextInt(99999999);
+
+        user.setCreditCard("48212500" + number);
 
         if (userModel.getFirstName().equals("Joseph") && userModel.getLastName().equals("Lawson"))
         {user.setRole("ADMIN");}
