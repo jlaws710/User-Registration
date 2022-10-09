@@ -5,7 +5,10 @@ import com.Project1.models.User;
 import com.Project1.models.UserModel;
 import com.Project1.models.VerificationToken;
 import com.Project1.event.RegistrationCompleteEvent;
+import com.Project1.repository.UserRepository;
 import com.Project1.service.UserService;
+
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
@@ -22,8 +25,16 @@ public class RegisterController {
     @Autowired
     private ApplicationEventPublisher publisher;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping("/welcome")
     public String hello() {return "Welcome to my Project";
+    }
+
+    @GetMapping("/user")
+    public List<User> list() {
+        return userRepository.findAll();
     }
 
     @PostMapping("/register")
