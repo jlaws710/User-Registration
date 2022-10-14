@@ -1,13 +1,12 @@
 package com.Project1.controller;
 
+import com.Project1.event.RegistrationCompleteEvent;
 import com.Project1.models.PasswordModel;
 import com.Project1.models.User;
 import com.Project1.models.UserModel;
 import com.Project1.models.VerificationToken;
-import com.Project1.event.RegistrationCompleteEvent;
 import com.Project1.repository.UserRepository;
 import com.Project1.service.UserService;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -32,7 +31,12 @@ public class RegisterController {
     public String hello() {return "Welcome to my Project";
     }
 
-    @GetMapping("/user")
+    @GetMapping("/user/{username}")
+    public User getUser(@PathVariable(value = "username") String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    @GetMapping("/admin")
     public List<User> list() {
         return userRepository.findAll();
     }

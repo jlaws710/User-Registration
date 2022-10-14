@@ -24,4 +24,5 @@ public interface UserService {
     void changePassword(User user, String newPassword);
 
     boolean checkValidationOfPassword(User user, String oldPassword);
+
 }

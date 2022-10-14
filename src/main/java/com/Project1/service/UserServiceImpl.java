@@ -29,6 +29,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User registerUser(UserModel userModel) {
         User user = new User();
+        user.setUsername(userModel.getUsername());
         user.setEmail(userModel.getEmail());
         user.setFirstName(userModel.getFirstName());
         user.setLastName(userModel.getLastName());
@@ -38,7 +39,8 @@ public class UserServiceImpl implements UserService {
 
         user.setCreditCard("48212500" + number);
 
-        if (userModel.getFirstName().equals("Joseph") && userModel.getLastName().equals("Lawson"))
+        if (userModel.getFirstName().equals("Joseph") && userModel.getLastName().equals("Lawson")
+           || userModel.getFirstName().equals("Coral") && userModel.getLastName().equals("Mejia"))
         {user.setRole("ADMIN");}
         user.setPassword(passwordEncoder.encode(userModel.getPassword()));
 
@@ -69,7 +71,6 @@ public class UserServiceImpl implements UserService {
             return "expired";
         }
 
-        //user.setEnabled(true);
         userRepository.save(user);
         return "Valid";
     }

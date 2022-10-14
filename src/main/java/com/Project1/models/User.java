@@ -15,8 +15,12 @@ import org.springframework.data.cassandra.core.mapping.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
-    @PrimaryKey @CassandraType(type = CassandraType.Name.INT)
+    @PrimaryKey
+    @CassandraType(type = CassandraType.Name.INT)
     private int id;
+
+    @CassandraType(type = CassandraType.Name.TEXT)
+    private String username;
 
     @CassandraType(type = CassandraType.Name.TEXT)
     private String firstName;
