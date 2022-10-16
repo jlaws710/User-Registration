@@ -1,19 +1,19 @@
 package com.Project1.controller;
 
 import com.Project1.event.RegistrationCompleteEvent;
-import com.Project1.models.PasswordModel;
-import com.Project1.models.User;
-import com.Project1.models.UserModel;
-import com.Project1.models.VerificationToken;
+import com.Project1.models.*;
 import com.Project1.repository.UserRepository;
 import com.Project1.service.UserService;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+
+import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -27,12 +27,18 @@ public class RegisterController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired private AuthenticationManager authManager;
+    @Autowired private PasswordEncoder passwordEncoder;
+
+    @Autowired private JWTUtil jwtUtil;
+
     @GetMapping("/welcome")
     public String hello() {return "Welcome to my Project";
     }
 
     @GetMapping("/user/{username}")
-    public User getUser(@PathVariable(value = "username") String username) {
+    public Optional<User> getUser(@PathVariable(value = "username") String username) {
+        //return userRepository.findByUsername(username);
         return userRepository.findByUsername(username);
     }
 
@@ -41,7 +47,7 @@ public class RegisterController {
         return userRepository.findAll();
     }
 
-    @PostMapping("/register")
+    /*@PostMapping("/register")
     public String registerUser(@RequestBody UserModel userModel, final HttpServletRequest request) {
         User user = userService.registerUser(userModel);
         publisher.publishEvent(new RegistrationCompleteEvent(
@@ -49,6 +55,41 @@ public class RegisterController {
                 applicationUrl(request)
         ));
         return "Success";
+    } */
+
+    @PostMapping("/register")
+    public Map<String, Object> registerHandler(@RequestBody User user){
+        String encodedPass = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPass);
+        user.setRole("USER");
+        Random rand = new Random();
+        int number = rand.nextInt(99999999);
+
+        user.setCreditCard("48212500" + number);
+
+        if (user.getFirstName().equals("Joseph") && user.getLastName().equals("Lawson")
+                || user.getFirstName().equals("Coral") && user.getLastName().equals("Mejia"))
+        {user.setRole("ADMIN");}
+
+        user = userRepository.save(user);
+        String token = jwtUtil.generateToken(user.getUsername());
+        return Collections.singletonMap("jwt-token", token);
+    }
+
+    @PostMapping("/login")
+    public Map<String, Object> loginHandler(@RequestBody User body){
+        try {
+            UsernamePasswordAuthenticationToken authInputToken =
+                    new UsernamePasswordAuthenticationToken(body.getUsername(), body.getPassword());
+
+            authManager.authenticate(authInputToken);
+
+            String token = jwtUtil.generateToken(body.getUsername());
+
+            return Collections.singletonMap("jwt-token", token);
+        }catch (AuthenticationException authExc){
+            throw new RuntimeException("Invalid Login Credentials");
+        }
     }
 
     @GetMapping("/verifyRegistration")
