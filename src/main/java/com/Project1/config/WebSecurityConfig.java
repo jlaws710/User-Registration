@@ -3,6 +3,7 @@ package com.Project1.config;
 import com.Project1.models.JWTFilter;
 import com.Project1.repository.UserRepository;
 import com.Project1.service.CustomUserDetailsService;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,39 +21,22 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import javax.servlet.http.HttpServletResponse;
-
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    private static final String[] APPROVED_LIST_URLS = {
-            "/welcome",
-            "/register",
-            "/verifyRegistration",
-            "/resendVerifyToken"
-    };
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(11);
     }
 
-    @Autowired private JWTFilter filter;
-    @Autowired private UserRepository userRepository;
-    @Autowired private CustomUserDetailsService uds;
+    @Autowired
+    private JWTFilter filter;
 
-    /*@Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .cors()
-                .and()
-                .csrf()
-                .disable()
-                .authorizeHttpRequests()
-                .antMatchers(APPROVED_LIST_URLS).permitAll();
-
-        return http.build();
-    } */
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private CustomUserDetailsService uds;
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -68,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers(HttpMethod.POST, "/register");
+        web.ignoring().antMatchers(HttpMethod.POST, "/register").antMatchers("/login");
     }
 
     /*@Override
@@ -93,7 +77,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors() // Enabling cors
                 .and()
                 .authorizeHttpRequests() // Authorizing incoming requests
-                .antMatchers(HttpMethod.POST, "/register").permitAll() // Allows auth requests to be made without authentication of any sort
+                .antMatchers(HttpMethod.POST, "/register").permitAll()
+                .antMatchers("/login").permitAll()// Allows auth requests to be made without authentication of any sort
                 .antMatchers("/user/{username}").hasAuthority("USER") // Allows only users with the "USER" role to make requests to the user routes
                 .antMatchers("/admin")
                 .hasAuthority("ADMIN")
