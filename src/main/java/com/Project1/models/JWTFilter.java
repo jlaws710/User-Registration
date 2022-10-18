@@ -14,8 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-@Component // Marks this as a component. Now, Spring Boot will handle the creation and management of the JWTFilter Bean
-// and you will be able to inject it in other places of your code
+@Component
 public class JWTFilter extends OncePerRequestFilter {
 
     // Injecting Dependencies
@@ -37,7 +36,7 @@ public class JWTFilter extends OncePerRequestFilter {
             if(jwt == null || jwt.isBlank()){
                 // Invalid JWT
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid JWT Token in Bearer Header");
-            }else {
+            } else {
                 try{
                     // Verify token and extract email
                     String username = jwtUtil.validateTokenAndRetrieveSubject(jwt);

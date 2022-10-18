@@ -5,6 +5,7 @@ import com.Project1.repository.UserRepository;
 import java.util.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -68,8 +69,29 @@ public class RegisterController {
             String token = jwtUtil.generateToken(body.getUsername());
 
             return Collections.singletonMap("jwt-token", token);
-        }catch (AuthenticationException authExc){
+        } catch (AuthenticationException authExc){
             throw new RuntimeException("Invalid Login Credentials");
         }
+    }
+
+    @PutMapping("/user/{username}")
+    public ResponseEntity<Object> updateUserDetails(
+            @RequestBody User userBody,
+            @PathVariable String username) {
+
+        Optional<Optional<User>> userRepo = Optional.ofNullable( (userRepository.findByUsername(username)));
+
+        if (!userRepo.isPresent() )
+            return ResponseEntity.notFound().build();
+
+        userBody.setUsername(username);
+        userRepository.save(userBody);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/user/{username}")
+    public void deleteUser(@PathVariable(value = "username") String username) {
+        userRepository.deleteByUsername(username);
     }
 }

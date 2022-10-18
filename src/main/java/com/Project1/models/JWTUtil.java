@@ -10,11 +10,12 @@ import java.util.Date;
 import java.util.UUID;
 import org.springframework.stereotype.Component;
 
-@Component // Marks this as a component. Now, Spring Boot will handle the creation and management of the JWTUtil Bean
-// and you will be able to inject it in other places of your code
+/**
+ * properties for JWT token creation
+ */
+@Component
 public class JWTUtil {
 
-    // Injects the jwt-secret property set in the resources/application.properties file
     //@Value("${jwt_secret}")
     private String secret = UUID.randomUUID().toString();
 

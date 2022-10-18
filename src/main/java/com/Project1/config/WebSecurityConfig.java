@@ -55,23 +55,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers(HttpMethod.POST, "/register").antMatchers("/login");
     }
 
-    /*@Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers(HttpMethod.POST,"/register")
-                .permitAll()
-                .antMatchers("/user/{username}")
-                .hasAuthority("USER")
-                .antMatchers("/admin")
-                .hasAuthority("ADMIN")
-                .anyRequest()
-                .authenticated()
-                .and()
-                .httpBasic();
-    } */
-
+    /** Method to configure application security
+     *
+     * @param http the {@link HttpSecurity} to modify
+     * @throws Exception
+     */
     @Override
-    protected void configure(HttpSecurity http) throws Exception { // Method to configure your app security
+    protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable() // Disabling csrf
                 .httpBasic().disable() // Disabling http basic
                 .cors() // Enabling cors
@@ -79,8 +69,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeHttpRequests() // Authorizing incoming requests
                 .antMatchers(HttpMethod.POST, "/register").permitAll()
                 .antMatchers("/login").permitAll()// Allows auth requests to be made without authentication of any sort
-                .antMatchers("/user/{username}").hasAuthority("USER") // Allows only users with the "USER" role to make requests to the user routes
-                .antMatchers("/admin")
+                .antMatchers("/user*").hasAuthority("USER") // Allows only users with the "USER" role to make requests to the user routes
+                .antMatchers("/admin", "/user*")
                 .hasAuthority("ADMIN")
                 .and()
                 .userDetailsService(uds) // Setting the user details service to the custom implementation
