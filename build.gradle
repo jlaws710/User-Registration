@@ -20,12 +20,9 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-cassandra'
-	implementation("com.auth0:java-jwt:2.0.1")
 	implementation("com.auth0:java-jwt:4.1.0")
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.apache.kafka:kafka-streams'
-	implementation 'org.springframework.kafka:spring-kafka'
 	implementation 'com.datastax.cassandra:cassandra-driver-core:1.0.0'
 	implementation 'com.datastax.cassandra:cassandra-driver-mapping:3.11.3'
 	implementation 'com.datastax.cassandra:cassandra-driver-extras:3.11.3'

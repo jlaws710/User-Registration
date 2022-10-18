@@ -22,10 +22,6 @@ public class RegisterController {
 
     @Autowired private JWTUtil jwtUtil;
 
-    @GetMapping("/welcome")
-    public String hello() {return "Welcome to my Project";
-    }
-
     @GetMapping("/user/{username}")
     public Optional<User> getUser(@PathVariable(value = "username") String username) {
         //return userRepository.findByUsername(username);
