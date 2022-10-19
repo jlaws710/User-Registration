@@ -52,7 +52,7 @@ public class JWTFilter extends OncePerRequestFilter {
                     if(SecurityContextHolder.getContext().getAuthentication() == null){
                         SecurityContextHolder.getContext().setAuthentication(authToken);
                     }
-                }catch(JWTVerificationException exc){
+                } catch(JWTVerificationException exc){
                     // Failed to verify JWT
                     response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid JWT Token");
                 }

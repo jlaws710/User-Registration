@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,7 +41,6 @@ public class RegisterController {
         user.setRole("USER");
         Random rand = new Random();
         int number = rand.nextInt(99999999);
-
         user.setCreditCard("48212500" + number);
 
         if (user.getFirstName().equals("Joseph") && user.getLastName().equals("Lawson")
@@ -78,7 +78,11 @@ public class RegisterController {
         if (!userRepo.isPresent() )
             return ResponseEntity.notFound().build();
 
-        userBody.setUsername(username);
+        userBody.setUsername(userBody.getUsername());
+        userBody.setFirstName(userBody.getFirstName());
+        userBody.setLastName(userBody.getLastName());
+        userBody.setEmail(userBody.getEmail());
+        userBody.setPassword(userBody.getPassword());
         userRepository.save(userBody);
 
         return ResponseEntity.noContent().build();

@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class JWTUtil {
 
-    //@Value("${jwt_secret}")
     private String secret = UUID.randomUUID().toString();
 
     // Method to sign and create a JWT using the injected secret
