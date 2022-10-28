@@ -8,9 +8,10 @@ import java.util.*
 
 @Repository
 interface UserRepository : CassandraRepository<User, String> {
-    @AllowFiltering
+
     fun findByEmail(email: String): User?
 
-    @AllowFiltering
+    fun deleteByUsername(username: String?)
+
     fun findByUsername(userName: String): Optional<User>
 }

@@ -3,17 +3,13 @@ package org.ProjectV1.controller
 import org.ProjectV1.models.JWTUtil
 import org.ProjectV1.models.User
 import org.ProjectV1.repository.UserRepository
+import org.jetbrains.kotlin.incremental.ChangesCollector.Companion.getNonPrivateNames
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.AuthenticationException
-import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.crypto.password.PasswordEncoder
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.util.*
 
 @RestController
@@ -30,11 +26,6 @@ class RegisterController {
 
     @Autowired
     private lateinit var jwtUtil: JWTUtil
-
-    @GetMapping("/welcome")
-    fun hello(): String? {
-        return "Welcome to my Project"
-    }
 
     @GetMapping("/user/{username}")
     fun getUser(@PathVariable(value = "username") username: String): Optional<User> {
@@ -77,5 +68,10 @@ class RegisterController {
         } catch (authExc: AuthenticationException) {
             throw RuntimeException("Invalid Login Credentials")
         }
+    }
+
+    @DeleteMapping("/user/{username}")
+    fun deleteUser(@PathVariable(value = "username") username: String?) {
+        userRepository.deleteByUsername(username)
     }
 }
