@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,13 +18,13 @@ public class RegisterController {
     private UserRepository userRepository;
 
     @Autowired private AuthenticationManager authManager;
+
     @Autowired private PasswordEncoder passwordEncoder;
 
     @Autowired private JWTUtil jwtUtil;
 
     @GetMapping("/user/{username}")
     public Optional<User> getUser(@PathVariable(value = "username") String username) {
-        //return userRepository.findByUsername(username);
         return userRepository.findByUsername(username);
     }
 

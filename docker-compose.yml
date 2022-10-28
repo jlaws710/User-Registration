@@ -1,7 +1,26 @@
 version: '3.1'
 services:
+  spring-boot-java:
+    image: java-project
+    container_name: java-project-1
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "9000:9000"
+    links:
+      - cassandra
+
   cassandra:
     image: cassandra
-    container_name: project
+    container_name: project-1
     ports:
       - "9042:9042"
+    #expose:
+      #- 9042
+    volumes:
+      - cassandra-data:/var/lib/cassandra
+
+volumes:
+  cassandra-data:
+    driver: local

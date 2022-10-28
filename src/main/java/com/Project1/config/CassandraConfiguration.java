@@ -10,6 +10,7 @@ import org.springframework.data.cassandra.config.SchemaAction;
  */
 @Configuration
 public class CassandraConfiguration extends AbstractCassandraConfiguration {
+
     @Value("${spring.data.cassandra.keyspace-name}")
     private String keySpace;
 
@@ -19,7 +20,7 @@ public class CassandraConfiguration extends AbstractCassandraConfiguration {
     @Value("${spring.data.cassandra.port}")
     private int port;
 
-    @Value("{spring.data.cassandra.schema-action}")
+    @Value("${spring.data.cassandra.schema-action}")
     private String schemaAction;
 
     public String getKeySpace() {
@@ -58,3 +59,4 @@ public class CassandraConfiguration extends AbstractCassandraConfiguration {
         return SchemaAction.CREATE_IF_NOT_EXISTS;
     }
 }
+
