@@ -2,25 +2,40 @@ version: '3.1'
 services:
   spring-boot-java:
     image: java-project
-    container_name: java-project-1
+    container_name: spring-boot-java
     build:
       context: ./
       dockerfile: Dockerfile
     ports:
       - "9000:9000"
+    depends_on:
+      - cassandra
     links:
       - cassandra
+    networks:
+      - project-network
+    restart: always
+    stdin_open: true
+    tty: true
 
   cassandra:
     image: cassandra
     container_name: project-1
     ports:
       - "9042:9042"
-    #expose:
-      #- 9042
+    expose:
+      - "9042"
     volumes:
-      - cassandra-data:/var/lib/cassandra
+      - /var/run/docker.sock:/var/run/docker.sock
+      - "./cassandra-init.sh:/cassandra-init.sh"
+    environment:
+      CASSANDRA_BROADCAST_ADDRESS: 192.168.0.105
+    command: "sh /cassandra-init.sh"
+    healthcheck:
+      test: [ "CMD-SHELL", "[ $$(nodetool statusgossip) = running ]" ]
+    networks:
+      - project-network
 
-volumes:
-  cassandra-data:
-    driver: local
+networks:
+  project-network:
+    driver: bridge
