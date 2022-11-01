@@ -30,13 +30,11 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.20")
-	implementation("org.springframework.kafka:spring-kafka")
 	implementation("org.jetbrains.kotlin:kotlin-compiler:1.7.20")
 	implementation("org.jetbrains.kotlin:kotlin-compiler-embeddable:1.6.21")
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("org.springframework.kafka:spring-kafka-test")
 	testImplementation("org.springframework.security:spring-security-test")
 }
 
