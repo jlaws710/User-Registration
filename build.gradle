@@ -33,10 +33,6 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 }
 
-test {
-	exclude '**/*'
-}
-
 tasks.named('test') {
 	useJUnitPlatform()
 }
